@@ -13,7 +13,9 @@ to [runway](https://runway.planetary-quantum.com/).
 You can then deploy changes by `git commit`ing them, and running `runway app
 deploy` again.
 
-This is a todo app (aka a demo app) for SvelteKit (via `npm create svelte@latest`). Follow these (four) steps to prepare the application for deployment on runway:
+This is a todo app (aka a demo app) for SvelteKit (via `npm create svelte@latest`).
+
+Follow these steps to prepare the application for deployment on runway:
 
 ## Step 1
 
@@ -47,7 +49,7 @@ index 48e3f1e..52851ff 100644
 
 ## Step 2
 
-Since Sveltekit currently doesn't include a `start` command, we will add that and the NodeJS version (in this example the current LTS: `v16.*`):
+Since Sveltekit currently doesn't include a `start` command, we will add that:
 
 ```diff
 diff --git a/package.json b/package.json
@@ -68,35 +70,9 @@ index 3803c14..f4d490f 100644
                 "typescript": "^4.7.4",
                 "vite": "^3.0.0"
         },
-+       "engines": {
-+               "node": "v16.*"
-+       },
-        "type": "module",
-        "dependencies": {
-                "@fontsource/fira-mono": "^4.5.0",
 ```
 
-## Step 3
-
-Tell runway which port the application will listen on. We usually fall back to `5000`, but Sveltekit likes `3000` — or (really) any port you set: `runway app config set PORT=3000`
-
-## Step4
-
-Last but not least, we add a `project.toml` to the root of the repository:
-
-```toml
-[ build ]
-  [[ build.env ]]
-    name="BP_NODE_RUN_SCRIPTS"
-    value="build"
-  [[ build.env ]]
-    name="BP_KEEP_FILES"
-    value="build/*"
-```
-
-This tells the builder to run `npm run build` and that the result is in the `build/` folder. All of this is according to defaults in Sveltekit (or vitejs, for that matter).
-
-## Deployment
+## Step 3 (deployment)
 
 Commit everything, `git commit -a -m 'My first release` and deploy the code with `runway app deploy`. Done!
 
